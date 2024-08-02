@@ -4,8 +4,15 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
+
+// Use CORS and specify allowed origins
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true
+}));
+
 app.use(bodyParser.json());
-app.use(cors());
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/hotel-ratings', {

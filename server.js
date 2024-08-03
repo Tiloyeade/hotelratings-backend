@@ -50,7 +50,7 @@ app.post('/api/ratings', async (req, res) => {
     }
 });
 
-app.get('/api/ratings', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
         console.log('Received GET request');
         const ratings = await Rating.find();

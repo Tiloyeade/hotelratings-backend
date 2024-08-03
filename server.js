@@ -2,11 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config(); // Import and configure dotenv
 
 const app = express();
 
 // Use CORS and specify allowed origins
-const allowedOrigins = ['http://localhost:3000', 'https://hotelratings-c199.vercel.app'];
+const allowedOrigins = ['http://localhost:3000', 'https://localhost:5000'];
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
@@ -21,8 +22,8 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
-// Connect to MongoDB with error handling
-mongoose.connect('mongodb://localhost:27017/hotel-ratings', { useNewUrlParser: true, useUnifiedTopology: true })
+// Connect to MongoDB with environment variable
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Could not connect to MongoDB', err));
 
@@ -59,6 +60,7 @@ app.get('/api/ratings', async (req, res) => {
     }
 });
 
-app.listen(5000, () => {
-    console.log('Server is running on port 5000');
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });

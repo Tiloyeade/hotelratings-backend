@@ -7,7 +7,7 @@ require('dotenv').config(); // Import and configure dotenv
 const app = express();
 
 // Use CORS and specify allowed origins
-const allowedOrigins = ['http://localhost:3000', 'https://localhost:5000'];
+const allowedOrigins = ['http://localhost:3000', 'https://localhost:5000', 'https://hotelratings-c199.vercel.app'];
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
@@ -17,7 +17,8 @@ app.use(cors({
         }
     },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(bodyParser.json());

@@ -7,7 +7,7 @@ const app = express();
 
 // Use CORS and specify allowed origins
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://hotelratings-c199.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true
 }));

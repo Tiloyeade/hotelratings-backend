@@ -6,8 +6,15 @@ const cors = require('cors');
 const app = express();
 
 // Use CORS and specify allowed origins
+const allowedOrigins = ['http://localhost:3000', 'https://hotelratings-c199.vercel.app'];
 app.use(cors({
-    origin: 'https://hotelratings-c199.vercel.app',
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true
 }));
@@ -41,7 +48,7 @@ app.post('/api/ratings', async (req, res) => {
     }
 });
 
-app.get('/', async (req, res) => {
+app.get('/api/ratings', async (req, res) => {
     try {
         console.log('Received GET request');
         const ratings = await Rating.find();
